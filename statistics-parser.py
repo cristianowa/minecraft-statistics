@@ -26,19 +26,11 @@ def minutesToTime(minutes):
 
 def import_player_info(world_dir,player_name):
 	try:
-#		raw_info = "player_info = "
-#		raw_info += cmd("cat " + world_dir + "/stats/" + player_name + ".json ")
-#		cmd("rm __tmp.py")
-#		f = open("__tmp.py", "w")
-#		f.writelines(raw_info)
-#		f.close()
-		
+	
 		json_data=open(world_dir + "/stats/" + player_name + ".json")
 		player_info = json.load(json_data)
 		json_data.close()
 		stats = {}
-		stats["killedBy"] = {}
-		stats["killEntity"] = {}
 		achievements = {}
 		for i in player_info:
 			indexes = i.split(".")
@@ -115,7 +107,7 @@ def print_table(table,size):
 		print
 	return	
 def html_table(table):
-	html = "<table border=\"1\" style=\"width:300px\">"
+	html = "<table border=\"1\" style=\"width:1500px\">"
 	for i in range(len(table)):
 		html += "<tr>\n"
 		for j in range(len(table[i])):
