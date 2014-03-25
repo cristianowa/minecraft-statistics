@@ -65,7 +65,7 @@ def create_display(info,key):
 def CmToDistance(value):
 	st = ""
 
-	r
+	return st
 
 def join(info,key):
 	full = {}
@@ -79,7 +79,7 @@ def join(info,key):
 				if j == "playOneMinute" :
 					full[j]["vector"][i["player_id"]] = minutesToTime(i[key][j])
 				elif j[len(j) - 2:len(j)] == "Cm":
-
+					full[j]["vector"][i["player_id"]] = CmToDistance(i[key][j])
 				else:
 					full[j]["vector"][i["player_id"]] = i[key][j]
 				full[j]["name"] = display[key][j]
