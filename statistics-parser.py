@@ -78,6 +78,8 @@ def join(info,key):
 					full[j]["vector"] = [None]*len(info)
 				if j == "playOneMinute" :
 					full[j]["vector"][i["player_id"]] = minutesToTime(i[key][j])
+				elif j == "exploreAllBiomes":#TODO: print this better
+					 full[j]["vector"][i["player_id"]] = i[key][j]
 				elif j[len(j) - 2:len(j)] == "Cm":
 					full[j]["vector"][i["player_id"]] = CmToDistance(i[key][j])
 				else:
