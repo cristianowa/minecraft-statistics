@@ -64,7 +64,11 @@ def create_display(info,key):
 
 def CmToDistance(value):
 	st = ""
-
+	val = int(value)
+	if val > 100000: #kilometers
+		return str(val/ 100000) + "." + str((val - (val / 100000)*100000)/100) + " Km"
+	else: #meters
+		return str(val/100) + "." +  str(val - (val/100)*100) + " m"
 	return st
 
 def join(info,key):
@@ -148,7 +152,6 @@ def display_info(info,players):
 					table[len(table)-1][j+1] = ""
 	print " ---- " + str(m.value())
 	table.sort()
-	print_table(table,20)
 	return table
 
 def generate_html(st,ac,filename):
