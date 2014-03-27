@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import re
 import traceback
+import argparse
 from commands import getoutput as cmd_
 from datetime import timedelta
 from display import stats as stats_display
@@ -66,9 +67,9 @@ def CmToDistance(value):
 	st = ""
 	val = int(value)
 	if val > 100000: #kilometers
-		return str(val/ 100000) + "." + str((val - (val / 100000)*100000)/100) + " Km"
+		return str(val/ 100000) + "," + str((val - (val / 100000)*100000)/100) + " Km"
 	else: #meters
-		return str(val/100) + "." +  str(val - (val/100)*100) + " m"
+		return str(val/100) + "," +  str(val - (val/100)*100) + " m"
 	return st
 
 def join(info,key):
@@ -176,11 +177,17 @@ def parse_all(world_dir):
 		info.append(import_player_info(world_dir,lst[player_id]))
 		info[len(info)-1]["player_id"] = player_id
 		info[len(info)-1]["player_id"] = player_id
-	stats =  join(info,"stats")
-	achi = join(info,"achievements")
-	st = display_info(stats,lst)
-	ac = display_info(achi,lst)
-	generate_html(st,ac,"index.html")
+	st = display_info(join(info,"stats"),lst)
+	ac = display_info(join(info,"achievements"),lst)
+	return (st,ac)
 if __name__ == "__main__" :
-	parse_all(sys.argv[1])
+	parser = argparse.ArgumentParser(description = "Creates Minecraft player statistics in a given server")
+	parser.add_argument("-O","--output", help = " Html output file", dest = "output", default = "")
+	parser.add_argument("-S","--standard", help = "Print table in command line",dest = "cmd", )
+	parser.add_argument("-I","--input", help = "Input world directory", dest = "input", default = "")
+	args = parser.parse_args()
+	if args.input == "":
+		print "invalid input"
+	st,ac = parse_all(args.input)
+	generate_html(st,ac,args.output)
 	
